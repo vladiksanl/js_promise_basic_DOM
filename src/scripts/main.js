@@ -20,23 +20,22 @@ function messages() {
     });
   })
     .then(() => {
-      body.append(resMes);
+      body.append(resMes.cloneNode(true));
     })
     .catch((e) => {
-      return e;
+      body.append(rejMes.cloneNode(true));
     });
 
-  const p2 = new Promise((resolve) => {
+  const p2 = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve();
+      reject(new Error('Promise was rejected!'));
     }, 3000);
   })
     .then(() => {
-      resMes.remove();
-      body.append(rejMes);
+      body.append(resMes.cloneNode(true));
     })
     .catch((e) => {
-      return e;
+      body.append(rejMes.cloneNode(true));
     });
 
   return [p1, p2];
